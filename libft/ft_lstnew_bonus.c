@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:21:30 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:14:52 by acesar-m         ###   ########.fr       */
+/*   Created: 2024/10/22 10:33:17 by acesar-m          #+#    #+#             */
+/*   Updated: 2024/10/22 14:41:27 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+t_list	*ft_lstnew(void *content);
 
-typedef struct s_message
+t_list	*ft_lstnew(void *content)
 {
-	unsigned char	c;
-	int				i;
-	char			*msg;
-}t_message;
+	t_list	*new;
 
-#endif
+	new = (t_list *)malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
+}

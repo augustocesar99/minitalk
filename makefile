@@ -6,72 +6,56 @@
 #    By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 17:21:18 by acesar-m          #+#    #+#              #
-#    Updated: 2025/01/07 17:21:20 by acesar-m         ###   ########.fr        #
+#    Updated: 2025/01/09 14:34:54 by acesar-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.SILENT:
+#Name of the program of the library
+SERVER	= server
+CLIENT	= client
 
-# Colors
-RESET = \033[0m       # Text Reset
-BLACK = \033[1;30m       # Black
-RED = \033[1;31m         # Red
-GREEN = \033[1;32m       # Green
-YELLOW = \033[1;33m      # Yellow
-BLUE = \033[1;34m       # Blue
-PURPLE = \033[1;35m     # Purple
-CYAN = \033[1;36m        # Cyan
-WHITE = \033[1;37m       # White
-
-# Commands
+#Compilers and flags
 CC		= cc
-RM		= rm -rf
-
-# Flags
 CFLAGS	= -Wall -Wextra -Werror
 
+#Directories
+SRCS = src
+INCLUDES = -I libft/ -I src/ -I .
+
 # Files
-CLIENT			= client
-SERVER			= server
-CLT_OBJS 		= client.o
-SRV_OBJS 		= server.o
+SRC_CLIENT = $(SRCS)/client.c
+SRC_SERVER = $(SRCS)/server.c
+OBJ_CLIENT = $(SRC_CLIENT:.c=.o)
+OBJ_SERVER = $(SRC_SERVER:.c=.o)
 
-CLIENT_BONUS	= client_bonus
-SERVER_BONUS	= server_bonus
-CLT_B_OBJS		= client_bonus.o
-SRV_B_OBJS		= server_bonus.o
+#Library
+LIBFT = libft/libft.a
 
-UTILS			= utils
-UTL_OBJS		= utils.o
+all: $(LIBFT) $(CLIENT) $(SERVER)
 
-all: $(CLIENT) $(SERVER)
+#Client Executable
+$(CLIENT): $(OBJ_CLIENT) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ_CLIENT) $(LIBFT) -o $(CLIENT)
 
+#Server Executable
+$(SERVER): $(OBJ_SERVER) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ_SERVER) $(LIBFT) -o $(SERVER)
+	
+%.o: %.c
+		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(CLIENT): $(CLT_OBJS) $(UTL_OBJS)
-	$(CC) $(CFLAGS) $(CLT_OBJS) $(UTL_OBJS) -o $(CLIENT)
-	printf "Client		$(GREEN)[OK]$(RESET)\n"
-
-$(SERVER): $(SRV_OBJS) $(UTL_OBJS)
-	$(CC) $(CFLAGS) $(SRV_OBJS) $(UTL_OBJS) -o $(SERVER)
-	printf "Server		$(GREEN)[OK]$(RESET)\n"
+$(LIBFT):
+	@make -C libft
+	@echo "Library Compiled."
 
 clean:
-	$(RM) $(CLT_OBJS) $(SRV_OBJS) $(UTL_OBJS) $(CLT_B_OBJS) $(SRV_B_OBJS)
-	printf "clean	       $(CYAN)[OK]$(RESET)\n"
+	@make -C libft clean
+	rm -f $(OBJ_CLIENT) $(OBJ_SERVER)
 
 fclean: clean
-	$(RM) $(CLIENT) $(SERVER) $(CLIENT_BONUS) $(SERVER_BONUS)
-	printf "fclean	       $(CYAN)[OK]$(RESET)\n"
-
-bonus: $(CLIENT_BONUS) $(SERVER_BONUS)
-
-$(CLIENT_BONUS): $(CLT_B_OBJS) $(UTL_OBJS)
-	$(CC) $(CFLAGS) $(CLT_B_OBJS) $(UTL_OBJS) -o $(CLIENT_BONUS)
-	printf "Client Bonus	$(GREEN)[OK]$(RESET)\n"
-$(SERVER_BONUS): $(SRV_B_OBJS) $(UTL_OBJS)
-	$(CC) $(CFLAGS)	$(SRV_B_OBJS) $(UTL_OBJS) -o $(SERVER_BONUS)
-	printf "Server Bonus	$(GREEN)[OK]$(RESET)\n"
+	@make -C libft fclean
+	rm -f $(CLIENT) $(SERVER)
 
 re:	fclean all
 
-.PHONY: clean fclean all re norm
+.PHONY: clean fclean all re

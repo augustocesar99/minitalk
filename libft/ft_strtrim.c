@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:21:30 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:14:52 by acesar-m         ###   ########.fr       */
+/*   Created: 2024/10/29 10:50:00 by acesar-m          #+#    #+#             */
+/*   Updated: 2024/10/29 10:50:03 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+char	*ft_strtrim(char const *s1, char const *set);
 
-typedef struct s_message
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	unsigned char	c;
-	int				i;
-	char			*msg;
-}t_message;
+	size_t	n;
 
-#endif
+	if (!s1 || !set)
+		return (0);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	n = ft_strlen(s1);
+	while (n && ft_strchr(set, s1[n - 1]))
+		n--;
+	return (ft_substr(s1, 0, n));
+}

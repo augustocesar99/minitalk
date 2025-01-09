@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:21:30 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:14:52 by acesar-m         ###   ########.fr       */
+/*   Created: 2024/10/15 13:30:47 by acesar-m          #+#    #+#             */
+/*   Updated: 2024/10/24 14:20:48 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
-typedef struct s_message
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned char	c;
-	int				i;
-	char			*msg;
-}t_message;
+	int		i;
+	char	*result;
 
-#endif
+	if (!s || !f)
+		return (NULL);
+	i = 0;
+	result = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!result)
+		return (NULL);
+	while (s[i])
+	{
+		result[i] = f(i, s[i]);
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}

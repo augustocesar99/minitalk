@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:21:30 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:14:52 by acesar-m         ###   ########.fr       */
+/*   Created: 2024/10/10 14:21:51 by acesar-m          #+#    #+#             */
+/*   Updated: 2024/10/24 14:42:49 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+char	*ft_strdup(const char *str);
 
-typedef struct s_message
+char	*ft_strdup(const char *str)
 {
-	unsigned char	c;
-	int				i;
-	char			*msg;
-}t_message;
+	size_t	len;
+	char	*copy;
 
-#endif
+	len = ft_strlen(str) + 1;
+	copy = malloc((len) * sizeof(char));
+	if (copy == NULL)
+		return (NULL);
+	ft_strlcpy(copy, str, len);
+	return (copy);
+}

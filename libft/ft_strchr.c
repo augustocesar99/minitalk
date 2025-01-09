@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:21:30 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:14:52 by acesar-m         ###   ########.fr       */
+/*   Created: 2024/10/08 15:23:41 by acesar-m          #+#    #+#             */
+/*   Updated: 2024/10/23 13:46:12 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+char	*ft_strchr(const char *s, int c);
 
-typedef struct s_message
+char	*ft_strchr(const char *s, int c)
 {
-	unsigned char	c;
-	int				i;
-	char			*msg;
-}t_message;
+	size_t	count;
 
-#endif
+	count = 0;
+	while (s[count] != '\0')
+	{
+		if (s[count] == (char) c)
+			return ((char *)(s + count));
+		count++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s + count);
+	return (NULL);
+}

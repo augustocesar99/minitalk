@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:21:30 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:14:52 by acesar-m         ###   ########.fr       */
+/*   Created: 2024/10/22 14:50:56 by acesar-m          #+#    #+#             */
+/*   Updated: 2024/10/22 15:39:34 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+void	ft_lstdelone(t_list *lst, void (*del)(void*));
 
-typedef struct s_message
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	unsigned char	c;
-	int				i;
-	char			*msg;
-}t_message;
-
-#endif
+	if (!lst)
+		return ;
+	del(lst->content);
+	free(lst);
+}

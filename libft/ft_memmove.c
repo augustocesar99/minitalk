@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:21:30 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:14:52 by acesar-m         ###   ########.fr       */
+/*   Created: 2024/10/07 16:31:45 by acesar-m          #+#    #+#             */
+/*   Updated: 2024/10/28 15:10:15 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+void	*ft_memmove(void *dest, const void *src, size_t n);
 
-typedef struct s_message
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned char	c;
-	int				i;
-	char			*msg;
-}t_message;
+	char	*d;
+	char	*s;
 
-#endif
+	if (dest == src)
+		return (dest);
+	d = (char *)dest;
+	s = (char *)src;
+	if (d < s)
+	{
+		ft_memcpy(d, s, n);
+	}
+	else
+	{
+		d += n;
+		s += n;
+		while (n--)
+			*(--d) = *(--s);
+	}
+	return (dest);
+}

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 17:21:30 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:14:52 by acesar-m         ###   ########.fr       */
+/*   Created: 2024/10/09 17:28:00 by acesar-m          #+#    #+#             */
+/*   Updated: 2024/10/29 10:17:09 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+void	*ft_calloc(size_t num, size_t size);
 
-typedef struct s_message
+void	*ft_calloc(size_t num, size_t size)
 {
-	unsigned char	c;
-	int				i;
-	char			*msg;
-}t_message;
+	void	*rtn;
 
-#endif
+	if (num != 0 && size > (size_t)-1 / num)
+		return (NULL);
+	rtn = malloc(num * size);
+	if (rtn == NULL)
+		return (NULL);
+	ft_memset(rtn, 0, num * size);
+	return (rtn);
+}
