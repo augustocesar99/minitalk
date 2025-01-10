@@ -6,7 +6,7 @@
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:21:44 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/09 18:24:32 by acesar-m         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:08:35 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,55 @@
 
 static t_message g_message = {0, 0, NULL};
 
-void create_message(void)
+void join_message(void)
 {
-    char *msg = NULL;
+    char *temp = NULL;
     char c = (char)g_message.c;
 
     if (g_message.msg)
     {
-        msg = ft_strjoin(g_message.msg, &c);
+        temp = ft_strjoin(g_message.msg, &c);
         free(g_message.msg);
     }
     else
     {
-        msg = ft_strdup(&c);
+        temp = ft_strdup(&c);
     }
-    if (!msg)
+    if (!temp)
         exit(EXIT_FAILURE);
-    g_message.msg = msg;
+    g_message.msg = temp;
+}
+
+void process_character(void)
+{
+    if (g_message.c == '\0')
+    {
+        if (g_message.msg)
+            ft_printf("%s\n", g_message.msg);
+        else
+            ft_printf("\n");
+        free(g_message.msg);
+        g_message.msg = NULL;
+    }
+    else
+        join_message();
+    g_message.c = 0;
+    g_message.i = 0;
 }
 
 void signal_handler(int signal, siginfo_t *info, void *context)
 {
     (void)context;
 
-    g_message.c = (g_message.c << 1) | (signal == SIGUSR1);
+    if (signal == SIGUSR1)
+        g_message.c = (g_message.c << 1) | 1;
+    else if (signal == SIGUSR2)
+        g_message.c = (g_message.c << 1);
+
     g_message.i++;
     
     if (g_message.i == 8)
-    {
-        if (g_message.c == '\0')
-        {
-            ft_printf("%s\n", g_message.msg ? g_message.msg : "");
-            free(g_message.msg);
-            g_message.msg = NULL;
-        }
-        else
-        {
-            create_message();
-        }
-        g_message.c = 0;
-        g_message.i = 0;
-    }
+        process_character();
     
     if (kill(info->si_pid, SIGUSR1) == -1)
         exit(EXIT_FAILURE);
@@ -64,6 +72,7 @@ int main(void)
 {
     struct sigaction sa;
 
+    ft_printf("Welcome the at acesar-m server.\n");
     ft_printf("Server PID: %d\n", getpid());
 
     sa.sa_sigaction = signal_handler;
