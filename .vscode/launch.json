@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/nfs/homes/acesar-m/Documents/formacao/projetos/minitalk",
-      "program": "/nfs/homes/acesar-m/Documents/formacao/projetos/minitalk/build/Debug/outDebug",
+      "cwd": "/nfs/homes/acesar-m/Documents/formacao/projetos/minitalk/src",
+      "program": "/nfs/homes/acesar-m/Documents/formacao/projetos/minitalk/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
