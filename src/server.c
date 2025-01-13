@@ -6,7 +6,7 @@
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:21:44 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/13 14:41:38 by acesar-m         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:04:34 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@ void	process_character(void)
 
 void	signal_handler(int signal, siginfo_t *info, void *context)
 {
-	static int	bit_count;
+	static int	bit_count = 0;
 
 	(void)context;
-	bit_count = 0;
 	if (signal == SIGUSR1)
 		g_message.c = (g_message.c << 1) | 1;
 	else if (signal == SIGUSR2)
