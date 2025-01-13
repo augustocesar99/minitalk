@@ -1,9 +1,0 @@
-# Ignorar tudo
-*
-
-# Permitir apenas arquivos específicos
-!src/   # Permitir a pasta src e seu conteúdo
-!libft/main.c   # Permitir um arquivo específico
-!Makefile
-!.h
-!.c
