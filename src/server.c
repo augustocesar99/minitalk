@@ -6,13 +6,13 @@
 /*   By: acesar-m <acesar-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:21:44 by acesar-m          #+#    #+#             */
-/*   Updated: 2025/01/13 14:26:29 by acesar-m         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:41:38 by acesar-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static t_message	g_message = {0, 0, NULL};
+static t_message	g_message = {0, 0};
 
 void	join_message(void)
 {
