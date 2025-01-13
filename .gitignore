@@ -5,3 +5,5 @@
 !src/   # Permitir a pasta src e seu conteúdo
 !libft/main.c   # Permitir um arquivo específico
 !makefile
+!.h
+!.c
